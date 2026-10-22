@@ -52,4 +52,17 @@ describe("extractSurface", () => {
     const s = extractSurface(html, "https://example.test/", "example");
     expect(s.prices).toEqual(["$15", "$45", "$75"]);
   });
+
+  it("notes structured data and counts the words a visitor would read", () => {
+    const s = extractSurface(pricing, URL_, "megastack-pricing");
+    expect(s.schema_org).toBe(true);
+    expect(s.word_count).toBe(43); // body text only: no <title>, scripts, cookie banner or footer
+  });
+
+  it("reports a JavaScript shell as no structured data and almost no words", () => {
+    const shell = `<html><head><title>App</title></head><body><div id="root"></div><script>render()</script><noscript>Enable JavaScript</noscript></body></html>`;
+    const s = extractSurface(shell, "https://example.test/", "example");
+    expect(s.schema_org).toBe(false);
+    expect(s.word_count).toBe(0);
+  });
 });

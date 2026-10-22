@@ -22,6 +22,10 @@ export function extractSurface(html: string, url: string, id: string) {
     headings: findHeadings($),
     promo: texts.find((t) => PROMO.test(t) && t.length < 90 && !t.endsWith("?")) ?? null,
     prices: [...new Set(texts.filter((t) => PRICE.test(t)))].slice(0, 8), // each price once, first-seen order
+    // schema.org data is what search engines and AI assistants read; losing it is a quiet SEO regression.
+    schema_org: $('script[type="application/ld+json"]').length > 0,
+    // Words a visitor reads (menus, footers, banners excluded). Near zero means a JavaScript shell, not a real page.
+    word_count: texts.reduce((n, t) => n + t.split(" ").length, 0),
   };
 }
 
