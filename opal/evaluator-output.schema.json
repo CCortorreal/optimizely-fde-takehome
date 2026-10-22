@@ -13,10 +13,10 @@
           "field": { "type": "string", "description": "Field name from the input, e.g. h1, cta_sales, prices" },
           "category": { "type": "string", "enum": ["positioning", "cta_motion", "pricing", "offer", "proof", "discoverability"] },
           "severity": { "type": "integer", "minimum": 1, "maximum": 5 },
-          "observed": { "type": "string", "description": "<field>: <before> → <after>, copied from the input" },
+          "observed": { "type": "string", "description": "<field>: <before> -> <after>, copied from the input" },
           "inferred": { "type": ["string", "null"], "description": "What it likely means, or null" },
           "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
-          "so_what": { "type": "string", "description": "≤ 30 words: own page = review/test; market page = what Megastack could test" }
+          "so_what": { "type": "string", "description": "<= 30 words: own page = review/test; market page = what Megastack could test" }
         }
       }
     },

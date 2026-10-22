@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { opalPrompt } from "../scripts/opal-prompt.ts";
 import schema from "../opal/evaluator-output.schema.json" with { type: "json" };
 import architectSchema from "../opal/architect-output.schema.json" with { type: "json" };
@@ -14,6 +14,13 @@ describe("opal texts", () => {
       const ownText = opalPrompt(name).replace(rubric, ""); // the rubric's labeled examples may name our test company
       expect(ownText, name).not.toMatch(/\{\{|megastack/i);
       expect(opalPrompt(name), name).not.toMatch(/<[a-z]/i); // Opal's prompt editor deletes <placeholders> as if they were HTML tags
+    }
+  });
+
+  it("every Opal text is plain ASCII: Windows `clip` garbles anything else (→ arrived in Opal as ΓåÆ)", () => {
+    for (const file of readdirSync(new URL("../opal/", import.meta.url), { withFileTypes: true }).filter((f) => f.isFile())) {
+      const text = readFileSync(new URL(`../opal/${file.name}`, import.meta.url), "utf8");
+      expect([...text].filter((ch) => ch.charCodeAt(0) > 127), file.name).toEqual([]);
     }
   });
 

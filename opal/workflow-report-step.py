@@ -27,7 +27,7 @@ def render(architect, coverage, summary, today):
     for i, e in enumerate(architect["experiments"], 1):
         size = "unknown (see notes)" if e["sample_size_per_variant"] is None else f"{e['sample_size_per_variant']:,} per variant, about {e['runtime_weeks']} weeks"
         lines += [
-            f"### {i}. Severity {e['severity']} · {e['role']} · {e['our_page']}" + (" · **review needed**" if e["review_needed"] else ""),
+            f"### {i}. Severity {e['severity']} | {e['role']} | {e['our_page']}" + (" | **review needed**" if e["review_needed"] else ""),
             "",
             f"**Hypothesis:** {e['hypothesis']}",
             "",
