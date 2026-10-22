@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { extractSurface } from "../src/surface.ts";
+import { classify } from "../src/classify.ts";
 
 // Real pages saved from the live sites (2026) and from the Wayback Machine (early 2025).
 // They are other companies' pages, so they stay local (gitignored); without them these tests skip.
@@ -42,7 +43,9 @@ describe.skipIf(!have)("real pages, early 2025 vs October 2026", () => {
   it("every saved page reads as a real page, far above a JavaScript shell", () => {
     for (const name of ["zapier-pricing", "figma-pricing", "diligent-home"]) {
       for (const year of ["2025", "2026"]) {
+        const html = readFileSync(new URL(`${name}.${year}.html`, dir), "utf8");
         expect(page(`${name}.${year}.html`).word_count).toBeGreaterThan(500);
+        expect(classify(200, html, page(`${name}.${year}.html`))).toBe("ok"); // no false "robot check" on a real page
       }
     }
   });
