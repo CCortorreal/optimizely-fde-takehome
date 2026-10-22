@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "required": ["experiments", "skipped"],
+  "properties": {
+    "experiments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_ids", "role", "severity", "evidence", "megastack_page", "hypothesis", "control", "variant", "primary_metric", "baseline_rate_assumed", "mde_relative_assumed", "weekly_visitors_assumed", "sample_size_per_variant", "runtime_weeks", "review_needed"],
+        "properties": {
+          "source_ids": { "type": "array", "items": { "type": "string" } },
+          "role": { "type": "string", "enum": ["own", "market"] },
+          "severity": { "type": "integer", "minimum": 3, "maximum": 5 },
+          "evidence": { "type": "array", "items": { "type": "string" } },
+          "megastack_page": { "type": "string" },
+          "hypothesis": { "type": "string" },
+          "control": { "type": "string" },
+          "variant": { "type": "string" },
+          "primary_metric": { "type": "string" },
+          "baseline_rate_assumed": { "type": "number" },
+          "mde_relative_assumed": { "type": "number" },
+          "weekly_visitors_assumed": { "type": "integer" },
+          "sample_size_per_variant": { "type": ["integer", "null"] },
+          "runtime_weeks": { "type": ["integer", "null"] },
+          "review_needed": { "type": "boolean" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "skipped": {
+      "type": "array",
+      "items": { "type": "object", "required": ["id", "field"], "properties": { "id": { "type": "string" }, "field": { "type": "string" } } }
+    }
+  }
+}
