@@ -16,7 +16,7 @@
           "observed": { "type": "string", "description": "<field>: <before> -> <after>, copied from the input" },
           "inferred": { "type": ["string", "null"], "description": "What it likely means, or null" },
           "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
-          "so_what": { "type": "string", "description": "<= 30 words: own page = review/test; market page = what Megastack could test" }
+          "so_what": { "type": "string", "description": "<= 30 words: own page = review/test; market page = what we could test on one of our own pages" }
         }
       }
     },

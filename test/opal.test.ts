@@ -15,6 +15,9 @@ describe("opal texts", () => {
       expect(ownText, name).not.toMatch(/\{\{|megastack/i);
       expect(opalPrompt(name), name).not.toMatch(/<[a-z]/i); // Opal's prompt editor deletes <placeholders> as if they were HTML tags
     }
+    for (const file of ["evaluator-output.schema.json", "architect-output.schema.json"]) {
+      expect(readFileSync(new URL(`../opal/${file}`, import.meta.url), "utf8"), file).not.toMatch(/megastack/i);
+    }
   });
 
   it("every Opal text is plain ASCII: Windows `clip` garbles anything else (→ arrived in Opal as ΓåÆ)", () => {
