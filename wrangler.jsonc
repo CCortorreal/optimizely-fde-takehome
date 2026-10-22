@@ -1,0 +1,6 @@
+// Cloudflare deploys the Megastack fixture site from this repo: static files only, no code.
+{
+  "name": "megastack",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./fixture" }
+}
