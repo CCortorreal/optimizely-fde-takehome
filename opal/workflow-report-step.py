@@ -49,11 +49,13 @@ def render(architect, coverage, summary, today):
     return "\n".join(lines) + "\n"
 
 
+# Inputs (all Automatic): coverage and summary from "Check pages (no AI)", experiments from the
+# Experiment Hypothesis Architect. Only these, not the page JSON: the orchestrator copies every
+# input it fills, and the less it copies, the less it can garble.
 def handler(input, ctx):
-    step1 = _parse(input["check_pages"])
     architect = _parse(input["experiments"])
     today = date.today().isoformat()
-    report = render(architect, step1["coverage"], step1["summary"], today)
+    report = render(architect, _parse(input["coverage"]), input["summary"], today)
     path = os.path.join(ctx["output_dir"], f"drift-report-{today}.md")
     with open(path, "w", encoding="utf-8") as f:
         f.write(report)
