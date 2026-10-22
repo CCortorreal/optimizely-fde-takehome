@@ -1,6 +1,8 @@
 import * as cheerio from "cheerio";
 
-type Cta = { text: string; href: string };
+// "where" lets the evaluator judge: a CTA that moved into a nav menu is likely a menu item, not a real change.
+type Where = "nav" | "header" | "main" | "other";
+type Cta = { text: string; href: string; where: Where };
 
 // The words decide, not the position (live headers are full of menu links like "Products").
 // Two lists because a CTA tells you the sales motion: self-serve vs sales-led (research 10/22).
@@ -22,11 +24,19 @@ function findCtas($: cheerio.CheerioAPI) {
     if (node.closest("footer").length > 0) return; // footers repeat site-wide links, not page CTAs
     const text = clean(node.text());
     if (!text || text.length > 40) return; // a 40+ character "button" is a paragraph, not a CTA
-    const cta = { text, href: node.attr("href") ?? "" };
+    const cta = { text, href: node.attr("href") ?? "", where: whereIs(node) };
     if (SALES.test(text)) ctas.sales ??= cta; // sales checked first: "Start a demo" is a sales CTA
     else if (SELF_SERVE.test(text)) ctas.self_serve ??= cta;
   });
   return ctas;
+}
+
+// Innermost landmark wins: a nav inside a header counts as "nav".
+function whereIs(node: cheerio.Cheerio<any>): Where {
+  if (node.closest("nav").length > 0) return "nav";
+  if (node.closest("header").length > 0) return "header";
+  if (node.closest("main").length > 0) return "main";
+  return "other";
 }
 
 // Collapse runs of whitespace and trim; an empty result means "not found", so return null.

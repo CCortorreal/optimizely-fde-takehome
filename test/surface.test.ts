@@ -14,7 +14,7 @@ describe("extractSurface", () => {
 
   it("finds one CTA per sales motion: self-serve yes, sales none", () => {
     const s = extractSurface(pricing, URL_, "megastack-pricing");
-    expect(s.ctas).toEqual({ self_serve: { text: "Start free trial", href: "/signup/" }, sales: null });
+    expect(s.ctas).toEqual({ self_serve: { text: "Start free trial", href: "/signup/", where: "header" }, sales: null });
   });
 
   it("picks CTAs by their words, not their position (menus and log-in links don't count)", () => {
@@ -24,8 +24,8 @@ describe("extractSurface", () => {
       <footer><a href="/trial">Start a free trial</a></footer>`;
     const s = extractSurface(html, "https://example.test/", "example");
     expect(s.ctas).toEqual({
-      self_serve: { text: "Get started", href: "/start" },
-      sales: { text: "Contact sales", href: "/sales" },
+      self_serve: { text: "Get started", href: "/start", where: "main" },
+      sales: { text: "Contact sales", href: "/sales", where: "nav" },
     });
   });
 });
