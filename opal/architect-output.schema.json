@@ -6,13 +6,13 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["source_ids", "role", "severity", "evidence", "megastack_page", "hypothesis", "control", "variant", "primary_metric", "baseline_rate_assumed", "mde_relative_assumed", "weekly_visitors_assumed", "sample_size_per_variant", "runtime_weeks", "review_needed"],
+        "required": ["source_ids", "role", "severity", "evidence", "our_page", "hypothesis", "control", "variant", "primary_metric", "baseline_rate_assumed", "mde_relative_assumed", "weekly_visitors_assumed", "sample_size_per_variant", "runtime_weeks", "review_needed"],
         "properties": {
           "source_ids": { "type": "array", "items": { "type": "string" } },
           "role": { "type": "string", "enum": ["own", "market"] },
           "severity": { "type": "integer", "minimum": 3, "maximum": 5 },
           "evidence": { "type": "array", "items": { "type": "string" } },
-          "megastack_page": { "type": "string" },
+          "our_page": { "type": "string" },
           "hypothesis": { "type": "string" },
           "control": { "type": "string" },
           "variant": { "type": "string" },

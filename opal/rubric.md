@@ -1,23 +1,24 @@
 # Commercial Surface Drift Rubric
 
 Use this rubric whenever you judge a change reported by `watch_surfaces` (surface drift, competitor change, pricing change, conversion audit).
-The tool reports **what changed**, field by field, with `before` and `after`. Your job is to say **what it means** and how much it matters, without claiming more than the evidence shows.
+The tool reports **what changed**, field by field, with `before` and `after`, and tags each page `own` (our company's pages) or `market` (anyone else's). Your job is to say **what it means** and how much it matters, without claiming more than the evidence shows.
+The examples below come from real runs: "Megastack" is our test company, the others are real market pages. They show how to apply a rule; they are not part of it.
 
 ## 1. Evidence rules (these come first)
 1. Every finding cites the field and its `before` → `after` values. No citation, no finding.
 2. Keep **observed** (what the tool reported) separate from **inferred** (what you think it means). Label every inference and give it a confidence: low, medium or high.
-3. **CTAs: a motion change means a motion appears or disappears.** The self-serve CTA or the sales CTA goes from present to missing, or from missing to present (Megastack pricing: self-serve removed, sales added). New wording **within the same motion** is a campaign, not a motion change: Zapier's "Try it free" → "Join Zapier Early Access" is still a self-serve signup, severity 2–3. Location alone proves nothing: real sites put their main CTA in the nav. But if a newly appearing CTA sits in `other` or links to a product or info page rather than a signup or contact page, call it a *possible* motion change with low confidence, severity at most 3.
+3. **CTAs: a motion change means a motion appears or disappears.** The self-serve CTA or the sales CTA goes from present to missing, or from missing to present (example: Megastack pricing lost "Start free trial" and gained "Talk to sales"). New wording **within the same motion** is a campaign, not a motion change (example: Zapier's "Try it free" → "Join Zapier Early Access" is still a self-serve signup), severity 2–3. Location alone proves nothing: real sites put their main CTA in the nav. But if a newly appearing CTA sits in `other` or links to a product or info page rather than a signup or contact page, call it a *possible* motion change with low confidence, severity at most 3.
 4. **Links are not offers.** Do not call a link a "trial", "free tier" or "self-serve path" unless the CTA text or the URL says trial, free, sign up or start.
-5. **`prices` is a list of price-shaped strings found on the page**, not a list of plans. Do not count tiers or seats from it. Say "the prices shown changed from X to Y".
+5. **`prices` is a list of price-shaped strings found on the page**, not a list of plans. Do not count tiers or seats from it, and do not say which plan a price belongs to. Say "the prices shown changed from X to Y".
 6. **Headings** show messaging. One new heading is not a strategy; describe it, and infer only from a pattern (headline + headings + title moving the same way).
-7. Never recommend copying a competitor. Market changes inform what Megastack should **test**, not what it should imitate.
+7. Never recommend copying a competitor. Market changes inform what we should **test** on our own pages, not what we should imitate.
 
 ## 2. Categories (one per finding)
 | Category | Fields | Example |
 |---|---|---|
 | `positioning` | h1, title, headings | Diligent: "board meetings" → "The leading AI platform for GRC" |
 | `cta_motion` | cta_self_serve, cta_sales | Megastack pricing: "Start free trial" → "Talk to sales" (self-serve → sales-led) |
-| `pricing` | prices | Megastack Team $49 → $59 |
+| `pricing` | prices | Megastack pricing: the prices shown changed from $19, $49 to $19, $59 |
 | `offer` | promo | Figma: "Save 20% when billed annually" removed |
 | `proof` | social_proof | Zapier: "Trusted by companies…" line removed |
 | `discoverability` | schema_org | Diligent added structured data (search and AI assistants can read it) |
@@ -32,8 +33,8 @@ The tool reports **what changed**, field by field, with `before` and `after`. Yo
 | 1 | Housekeeping | Title wording, structured data, a social proof count |
 
 ## 4. Own pages vs market pages
-- **Own (Megastack):** ask "was this reviewed, and should it be tested before it stays?" An unreviewed change of motion on our own page is severity 5 even if it was intended. A price or offer change on our own page stays 4: companies change prices on purpose, and if every change is a 5, nobody listens to the 5s.
-- **Market:** ask "what should Megastack test in response?" Name the Megastack page the test would run on.
+- **Own:** ask "was this reviewed, and should it be tested before it stays?" An unreviewed change of motion on our own page is severity 5 even if it was intended. A price or offer change on our own page stays 4: companies change prices on purpose, and if every change is a 5, nobody listens to the 5s.
+- **Market:** ask "what should we test in response?" Name the page of ours the test would run on.
 
 ## 5. Where these judgments come from
 Practitioner guidance and vendor benchmarks (pricing-page testing guides, ProfitWell/Paddle on annual churn, CTA experiment surveys), checked 2026-10-22. No controlled studies: treat the severities as defaults to calibrate with real outcomes, not laws.
