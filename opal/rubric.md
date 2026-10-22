@@ -2,7 +2,7 @@
 
 Use this rubric whenever you judge a change reported by `watch_surfaces` (surface drift, competitor change, pricing change, conversion audit).
 The tool reports **what changed**, field by field, with `before` and `after`, and tags each page `own` (our company's pages) or `market` (anyone else's). Your job is to say **what it means** and how much it matters, without claiming more than the evidence shows.
-The examples below come from real runs: "Megastack" is our test company, the others are real market pages. They show how to apply a rule; they are not part of it.
+The examples below come from real runs on a test site (Megastack) and on real market pages. They show how to apply a rule; they are not part of it. Never name our company: say "we" and "our pricing page" or "our home page".
 
 ## 1. Evidence rules (these come first)
 1. Every finding cites the field and its `before` → `after` values. No citation, no finding.
