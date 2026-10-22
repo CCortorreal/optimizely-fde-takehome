@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import { NOISE, PROOF_LINE, TESTIMONIALS } from "./noise.ts";
 
 // "where" lets the evaluator judge: a CTA that moved into a nav menu is likely a menu item, not a real change.
 type Where = "nav" | "header" | "main" | "other";
@@ -26,13 +27,14 @@ export function extractSurface(html: string, url: string, id: string) {
     schema_org: $('script[type="application/ld+json"]').length > 0,
     // Words a visitor reads (menus, footers, banners excluded). Near zero means a JavaScript shell, not a real page.
     word_count: texts.reduce((n, t) => n + t.split(" ").length, 0),
+    social_proof: countProof($, texts),
   };
 }
 
 // Real pricing pages carry no labels like class="price", so these rules read the words (probe of real pages 10/22).
 const PRICE = /^\$\s?\d[\d,]*(\.\d+)?(\s*(\/|per)\s*[\w ]+)?$/i; // "$19", "$12.50", "$16 / month"
 const PROMO = /(save \d+%|\d+% off|free for|limited time|discount)/i; // FAQ questions are filtered out by the "?" rule
-const SKIP = "script, style, noscript, nav, footer, [id*=onetrust], [class*=cookie]"; // menus, footers, banners repeat site-wide
+const SKIP = NOISE; // the judgment calls live in noise.ts
 
 // Section headings carry the messaging on real sites (value props, sometimes plan names). Order kept: reordering is a signal.
 function findHeadings($: cheerio.CheerioAPI): string[] {
@@ -54,6 +56,12 @@ function pageTexts($: cheerio.CheerioAPI): string[] {
     if (t) out.push(t);
   });
   return out;
+}
+
+// Testimonial blocks (outermost only: a quote's inner parts are not extra quotes) plus "Trusted by ..." lines.
+function countProof($: cheerio.CheerioAPI, texts: string[]): number {
+  const blocks = $(TESTIMONIALS).filter((_, el) => $(el).parent().closest(TESTIMONIALS).length === 0).length;
+  return blocks + texts.filter((t) => PROOF_LINE.test(t)).length;
 }
 
 function findCtas($: cheerio.CheerioAPI) {

@@ -56,7 +56,25 @@ describe("extractSurface", () => {
   it("notes structured data and counts the words a visitor would read", () => {
     const s = extractSurface(pricing, URL_, "megastack-pricing");
     expect(s.schema_org).toBe(true);
-    expect(s.word_count).toBe(43); // body text only: no <title>, scripts, cookie banner or footer
+    expect(s.word_count).toBe(33); // body text only: no <title>, scripts, cookie banner, footer or testimonial
+  });
+
+  it("counts social proof instead of reading it", () => {
+    const s = extractSurface(pricing, URL_, "megastack-pricing");
+    expect(s.social_proof).toBe(1); // the one testimonial
+  });
+
+  it("a rotated testimonial is not a change (same count, quote text ignored)", () => {
+    const rotated = pricing.replace(
+      `"Megastack cut our reporting time in half." Dana, Ops Lead`,
+      `"We shipped our board pack in a day, not a week." Sam, CFO`,
+    );
+    expect(extractSurface(rotated, URL_, "megastack-pricing")).toEqual(extractSurface(pricing, URL_, "megastack-pricing"));
+  });
+
+  it("an added proof line raises the count", () => {
+    const more = pricing.replace("<h1>", "<p>Trusted by 10,000 teams</p><h1>");
+    expect(extractSurface(more, URL_, "megastack-pricing").social_proof).toBe(2);
   });
 
   it("reports a JavaScript shell as no structured data and almost no words", () => {
