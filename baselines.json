@@ -93,5 +93,58 @@
       "word_count": 626,
       "social_proof": 1
     }
+  },
+  "megastack-home": {
+    "captured_from": "https://megastack.cortorreal.fun/ @ 2026-10-22T17:33:56.994Z",
+    "surface": {
+      "title": "Megastack | Reporting your whole team trusts",
+      "h1": "Reporting your whole team trusts",
+      "ctas": {
+        "self_serve": {
+          "text": "Start free trial",
+          "href": "/signup/",
+          "where": "header"
+        },
+        "sales": null
+      },
+      "headings": [
+        "Connect your tools in minutes",
+        "One source of truth",
+        "Reports that write themselves"
+      ],
+      "promo": null,
+      "prices": [],
+      "schema_org": true,
+      "word_count": 87,
+      "social_proof": 2
+    }
+  },
+  "megastack-pricing": {
+    "captured_from": "https://megastack.cortorreal.fun/pricing/ @ 2026-10-22T17:33:57.069Z",
+    "surface": {
+      "title": "Pricing | Megastack",
+      "h1": "Simple pricing for growing teams",
+      "ctas": {
+        "self_serve": {
+          "text": "Start free trial",
+          "href": "/signup/",
+          "where": "header"
+        },
+        "sales": null
+      },
+      "headings": [
+        "Starter",
+        "Team",
+        "Enterprise"
+      ],
+      "promo": "Save 20% on annual plans",
+      "prices": [
+        "$19",
+        "$49"
+      ],
+      "schema_org": true,
+      "word_count": 55,
+      "social_proof": 1
+    }
   }
 }

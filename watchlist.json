@@ -1,4 +1,6 @@
 [
+  { "id": "megastack-home", "url": "https://megastack.cortorreal.fun/", "role": "own" },
+  { "id": "megastack-pricing", "url": "https://megastack.cortorreal.fun/pricing/", "role": "own" },
   { "id": "zapier-pricing", "url": "https://zapier.com/pricing", "role": "market" },
   { "id": "figma-pricing", "url": "https://www.figma.com/pricing/", "role": "market" },
   { "id": "diligent-home", "url": "https://www.diligent.com/", "role": "market" }

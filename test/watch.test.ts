@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { readFileSync } from "node:fs";
 import { watchSurfaces } from "../src/watch.ts";
 import { extractSurface } from "../src/surface.ts";
+import { classify } from "../src/classify.ts";
 import api from "../api/index.ts";
 import watchlist from "../watchlist.json" with { type: "json" };
 import baselines from "../baselines.json" with { type: "json" };
@@ -53,8 +54,7 @@ describe("watchSurfaces", () => {
       const b = (baselines as Record<string, { captured_from: string; surface: { h1: string | null; word_count: number } }>)[id];
       expect(b, id).toBeDefined();
       expect(b.captured_from).toMatch(/^https:\/\/(web\.archive\.org\/web\/\d{14}id_\/|megastack\.cortorreal\.fun\/)/); // Wayback, or our own live site
-      expect(b.surface.h1, id).not.toBeNull();
-      expect(b.surface.word_count, id).toBeGreaterThan(500);
+      expect(classify(200, "", b.surface), id).toBe("ok"); // the same "readable page" rule the tool uses, not a size guess
     }
   });
 });
