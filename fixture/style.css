@@ -1,0 +1,10 @@
+body { font-family: system-ui, sans-serif; margin: 0; color: #1c1c28; background: #fafaf7; }
+header, main, footer { max-width: 880px; margin: 0 auto; padding: 16px; }
+header { display: flex; justify-content: space-between; align-items: center; }
+nav a, header a { margin-right: 16px; color: inherit; }
+.button { background: #3b3bd6; color: #fff; padding: 10px 16px; border-radius: 6px; text-decoration: none; }
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.plan { border: 1px solid #ddd; border-radius: 8px; padding: 16px; background: #fff; }
+.promo { background: #fff4c2; padding: 8px 12px; display: inline-block; border-radius: 6px; }
+blockquote { border-left: 4px solid #3b3bd6; margin: 24px 0; padding-left: 16px; }
+footer { color: #666; font-size: 14px; }

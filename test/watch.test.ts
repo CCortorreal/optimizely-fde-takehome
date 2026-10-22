@@ -52,7 +52,7 @@ describe("watchSurfaces", () => {
     for (const { id } of watchlist) {
       const b = (baselines as Record<string, { captured_from: string; surface: { h1: string | null; word_count: number } }>)[id];
       expect(b, id).toBeDefined();
-      expect(b.captured_from).toMatch(/^https:\/\/web\.archive\.org\/web\/\d{14}id_\//);
+      expect(b.captured_from).toMatch(/^https:\/\/(web\.archive\.org\/web\/\d{14}id_\/|megastack\.cortorreal\.fun\/)/); // Wayback, or our own live site
       expect(b.surface.h1, id).not.toBeNull();
       expect(b.surface.word_count, id).toBeGreaterThan(500);
     }
