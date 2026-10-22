@@ -6,7 +6,7 @@ The tool reports **what changed**, field by field, with `before` and `after`. Yo
 ## 1. Evidence rules (these come first)
 1. Every finding cites the field and its `before` → `after` values. No citation, no finding.
 2. Keep **observed** (what the tool reported) separate from **inferred** (what you think it means). Label every inference and give it a confidence: low, medium or high.
-3. **CTAs:** a CTA found in `nav` or `other` may be a menu item or a promo banner, not the page's main ask. Do not call it a change of sales motion unless the self-serve/sales pair changed in `header` or `main`. Severity at most 2 otherwise.
+3. **CTAs: a motion change means a motion appears or disappears.** The self-serve CTA or the sales CTA goes from present to missing, or from missing to present (Megastack pricing: self-serve removed, sales added). New wording **within the same motion** is a campaign, not a motion change: Zapier's "Try it free" → "Join Zapier Early Access" is still a self-serve signup, severity 2–3. Location alone proves nothing: real sites put their main CTA in the nav. But if a newly appearing CTA sits in `other` or links to a product or info page rather than a signup or contact page, call it a *possible* motion change with low confidence, severity at most 3.
 4. **Links are not offers.** Do not call a link a "trial", "free tier" or "self-serve path" unless the CTA text or the URL says trial, free, sign up or start.
 5. **`prices` is a list of price-shaped strings found on the page**, not a list of plans. Do not count tiers or seats from it. Say "the prices shown changed from X to Y".
 6. **Headings** show messaging. One new heading is not a strategy; describe it, and infer only from a pattern (headline + headings + title moving the same way).
@@ -26,14 +26,17 @@ The tool reports **what changed**, field by field, with `before` and `after`. Yo
 | Severity | Meaning | Example |
 |---|---|---|
 | 5 | The way the page sells changed | Megastack pricing switched its main CTA from trial to sales |
-| 4 | The offer or the core position changed | A price rose; a promo appeared or disappeared; Diligent repositioned as an AI GRC platform |
+| 4 | The offer or the core position changed | A price rose; a promo appeared or disappeared (a removed "Save 20% annually" is a 25% price rise for annual buyers, and annual customers churn less); Diligent repositioned as an AI GRC platform |
 | 3 | The message changed, the position did not | Megastack home H1: "Reporting your whole team trusts" → "Weekly reports, written for you" |
-| 2 | Worth knowing, not acting on alone | A CTA moved into the nav; headings reordered; a nav banner like Zapier's "Join Zapier Early Access" |
+| 2 | Worth knowing, not acting on alone | A CTA moved; headings reordered; new campaign wording on the same motion, like Zapier's "Join Zapier Early Access" |
 | 1 | Housekeeping | Title wording, structured data, a social proof count |
 
 ## 4. Own pages vs market pages
 - **Own (Megastack):** ask "was this reviewed, and should it be tested before it stays?" An unreviewed change of motion or price on our own page is severity 5 even if it was intended.
 - **Market:** ask "what should Megastack test in response?" Name the Megastack page the test would run on.
 
-## 5. Ignore (the tool already drops these; never bring them back)
+## 5. Where these judgments come from
+Practitioner guidance and vendor benchmarks (pricing-page testing guides, ProfitWell/Paddle on annual churn, CTA experiment surveys), checked 2026-10-22. No controlled studies: treat the severities as defaults to calibrate with real outcomes, not laws.
+
+## 6. Ignore (the tool already drops these; never bring them back)
 Testimonial wording, carousels, footers, cookie banners, link tracking codes and language codes, build churn, word count.
