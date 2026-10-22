@@ -1,4 +1,4 @@
-# Gold examples (Quality tab, Semantic Drift Evaluator)
+# Quality tab texts (Semantic Drift Evaluator, then Experiment Hypothesis Architect)
 ## Cases
 Each comes from a real run (10/22). "Must" items fail the case when missed.
 
@@ -133,3 +133,14 @@ Output Example:
   "top_severity": 5
 }
 ```
+
+## Quality tab: Experiment Hypothesis Architect
+Criteria only, one per rule of its prompt (added 10/22). No examples yet: a good example needs a real run's findings as input.
+
+### Criteria (Add Criterion, one per line)
+1. Writes at most 3 experiments, only from findings of severity 3 or higher; every other finding is listed in skipped with its id, field and the reason "severity below 3" or "over the cap of 3".
+2. Every experiment runs on one of our own pages; for a market change it tests an idea on our page and never proposes copying the competitor's wording, prices or design.
+3. For an own-page change, the control is the page before the change and the variant is the page after; it says the change should be reviewed and never claims it was or was not tested or reviewed.
+4. The primary metric is one that both control and variant can move; a metric only one version can produce (sales leads when only the variant has a sales button) fails.
+5. Baseline rate, minimum detectable effect and weekly visitors are stated and marked as assumptions; sample size and runtime come from exactly one exp_calculate_sample_size call per experiment, or are null with the reason in notes.
+6. Each experiment's evidence copies its source findings' observed lines unchanged, and its hypothesis follows "If we (change) on (our page), then (metric) will (rise or fall), because (observed change)".
