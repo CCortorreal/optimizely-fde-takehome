@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "required": ["id", "role", "findings", "top_severity"],
+  "properties": {
+    "id": { "type": "string", "description": "Page id from the input" },
+    "role": { "type": "string", "enum": ["own", "market"] },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "category", "severity", "observed", "confidence", "so_what"],
+        "properties": {
+          "field": { "type": "string", "description": "Field name from the input, e.g. h1, cta_sales, prices" },
+          "category": { "type": "string", "enum": ["positioning", "cta_motion", "pricing", "offer", "proof", "discoverability"] },
+          "severity": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "observed": { "type": "string", "description": "<field>: <before> → <after>, copied from the input" },
+          "inferred": { "type": ["string", "null"], "description": "What it likely means, or null" },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+          "so_what": { "type": "string", "description": "≤ 30 words: own page = review/test; market page = what Megastack could test" }
+        }
+      }
+    },
+    "top_severity": { "type": "integer", "minimum": 1, "maximum": 5 }
+  }
+}
