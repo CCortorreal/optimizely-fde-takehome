@@ -15,6 +15,22 @@ describe("opal texts", () => {
     }
   });
 
+  it("the Quality tab's example outputs are valid JSON that fits the output schema", () => {
+    const gold = readFileSync(new URL("../opal/gold-examples.md", import.meta.url), "utf8");
+    const outputs = [...gold.matchAll(/Output Example:\r?\n```json\r?\n([\s\S]*?)```/g)].map((m) => JSON.parse(m[1]));
+    expect(outputs).toHaveLength(2);
+    const finding = schema.properties.findings.items;
+    for (const o of outputs) {
+      for (const key of schema.required) expect(o, o.id).toHaveProperty(key);
+      for (const f of o.findings) {
+        for (const key of finding.required) expect(f, `${o.id} ${f.field}`).toHaveProperty(key);
+        expect(finding.properties.category.enum).toContain(f.category);
+        expect(f.severity).toBeGreaterThanOrEqual(1);
+        expect(f.severity).toBeLessThanOrEqual(5);
+      }
+    }
+  });
+
   it("the output schema allows exactly the rubric's categories", () => {
     const table = [...rubric.matchAll(/^\| `(\w+)` \|/gm)].map((m) => m[1]);
     expect(schema.properties.findings.items.properties.category.enum).toEqual(table);
