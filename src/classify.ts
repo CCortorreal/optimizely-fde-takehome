@@ -9,7 +9,8 @@ export function classify(httpStatus: number, html: string, s: { h1: string | nul
   if (REFUSED.includes(httpStatus)) return "blocked";
   if (httpStatus < 200 || httpStatus >= 300) return "failed"; // 0 = timeout or network error; 404, 500 = no page
   if (CHALLENGE.test(html)) return "blocked"; // a 200 that is really a robot check
-  // The word_count gate (real pages read 600 to 3,000+): no headline and few words, or almost no words at all.
-  if ((s.h1 === null && s.word_count < 200) || s.word_count < 50) return "unrendered";
+  // The word_count gate. A JavaScript shell's tell is no headline, so: no H1 and few words, or almost no words at all.
+  // The floor is low on purpose: a short real page with a headline (Megastack pricing reads 33 words) is still a page.
+  if ((s.h1 === null && s.word_count < 200) || s.word_count < 20) return "unrendered";
   return "ok";
 }

@@ -23,7 +23,7 @@ afterAll(() => server.close());
 
 describe("fetchPage", () => {
   it("gives up at the time limit and returns 'nothing' instead of crashing", async () => {
-    expect(await fetchPage(`${base}/slow`, { timeoutMs: 100 })).toEqual({ status: 0, html: "" });
+    expect(await fetchPage(`${base}/slow`, { timeoutMs: 100 })).toEqual({ status: 0, html: "", url: `${base}/slow` });
   });
 
   it("unzips gzip whether or not the server says it is gzip", async () => {
@@ -48,8 +48,8 @@ describe("classify", () => {
   });
   it("unrendered: a page came back but there is almost nothing to read", () => {
     expect(classify(200, "<div id=root>", { h1: null, word_count: 12 })).toBe("unrendered");
-    expect(classify(200, "<h1>Hi</h1>", { h1: "Hi", word_count: 30 })).toBe("unrendered");
-    expect(classify(200, "<h1>Hi</h1>", { h1: "Hi", word_count: 120 })).toBe("ok"); // short but real
+    expect(classify(200, "<h1>Hi</h1>", { h1: "Hi", word_count: 8 })).toBe("unrendered");
+    expect(classify(200, "<h1>Hi</h1>", { h1: "Hi", word_count: 33 })).toBe("ok"); // short but real, like Megastack pricing
   });
 });
 

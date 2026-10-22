@@ -1,0 +1,97 @@
+{
+  "zapier-pricing": {
+    "captured_from": "https://web.archive.org/web/20250228154419id_/https://zapier.com/pricing",
+    "surface": {
+      "title": "Plans & Pricing | Zapier",
+      "h1": "Scalable automation for businesses of all sizes",
+      "ctas": {
+        "self_serve": {
+          "text": "Try it free",
+          "href": "/sign-up?from=logged-out-pricing-page-free",
+          "where": "main"
+        },
+        "sales": {
+          "text": "Contact Sales",
+          "href": "https://zapier.com/l/contact-sales?demo_source=pricing-logged-out_teams",
+          "where": "main"
+        }
+      },
+      "headings": [
+        "Workflow automation plans",
+        "Free",
+        "Professional",
+        "Team",
+        "Enterprise",
+        "What you get with all paid plans"
+      ],
+      "promo": "Pay yearly (Save 33%)",
+      "prices": [],
+      "schema_org": true,
+      "word_count": 1647,
+      "social_proof": 1
+    }
+  },
+  "figma-pricing": {
+    "captured_from": "https://web.archive.org/web/20250228121913id_/https://www.figma.com/pricing/",
+    "surface": {
+      "title": "Plans & Pricing | Figma",
+      "h1": "Choose the right plan for your team",
+      "ctas": {
+        "self_serve": {
+          "text": "Get started",
+          "href": "https://www.figma.com/signup?locale=en-us",
+          "where": "header"
+        },
+        "sales": {
+          "text": "Contact sales",
+          "href": "https://www.figma.com/contact/",
+          "where": "header"
+        }
+      },
+      "headings": [
+        "Plans",
+        "Pricing FAQs",
+        "Trusted by teams at"
+      ],
+      "promo": "Save 20% when billed annually",
+      "prices": [
+        "$15",
+        "$45",
+        "$25",
+        "$75",
+        "$35"
+      ],
+      "schema_org": true,
+      "word_count": 2325,
+      "social_proof": 1
+    }
+  },
+  "diligent-home": {
+    "captured_from": "https://web.archive.org/web/20250228144028id_/https://www.diligent.com/",
+    "surface": {
+      "title": "Diligent - Clarify risk. Elevate governance.",
+      "h1": "It’s time to bring clarity, simplicity, and security to your board meetings.",
+      "ctas": {
+        "self_serve": null,
+        "sales": {
+          "text": "Request a demo",
+          "href": "",
+          "where": "main"
+        }
+      },
+      "headings": [
+        "Transform today’s risks into tomorrow’s opportunities with the Diligent One Platform",
+        "Diligent One Platform",
+        "Customers love Diligent",
+        "Related content",
+        "We are committed to providing a robust and secure service that protects all our customers’ data.",
+        "Clarity & control for the agile enterprise."
+      ],
+      "promo": null,
+      "prices": [],
+      "schema_org": false,
+      "word_count": 626,
+      "social_proof": 1
+    }
+  }
+}

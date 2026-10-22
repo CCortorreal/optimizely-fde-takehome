@@ -4,7 +4,7 @@ import { gunzipSync } from "node:zlib";
 export const USER_AGENT = "SurfaceWatch/0.1 (+https://github.com/CCortorreal/optimizely-fde-takehome)";
 
 // Never throws. A page we couldn't get comes back as status 0 with no HTML, and classify() reports it.
-export async function fetchPage(url: string, opts: { timeoutMs?: number } = {}): Promise<{ status: number; html: string }> {
+export async function fetchPage(url: string, opts: { timeoutMs?: number } = {}): Promise<{ status: number; html: string; url: string }> {
   try {
     const res = await fetch(url, {
       headers: { "user-agent": USER_AGENT },
@@ -14,8 +14,8 @@ export async function fetchPage(url: string, opts: { timeoutMs?: number } = {}):
     // fetch unzips only when the server says "gzip"; Wayback sometimes sends gzip without saying so.
     // Every gzip file starts with the same two bytes (1f 8b), so we check for them.
     const body = bytes[0] === 0x1f && bytes[1] === 0x8b ? gunzipSync(bytes) : bytes;
-    return { status: res.status, html: body.toString("utf8") };
+    return { status: res.status, html: body.toString("utf8"), url: res.url }; // url = where redirects ended up
   } catch {
-    return { status: 0, html: "" };
+    return { status: 0, html: "", url };
   }
 }
