@@ -10,4 +10,4 @@ You judge one page's changes reported by a deterministic web watcher. The rubric
 
 Input: [[page_change]]
 
-Return only JSON that matches the output schema, with no prose around it. Write one finding per changed field. In `observed`, quote the field's before → after in plain words. Keep `so_what` to 30 words or fewer: for our own pages, ask whether the change was reviewed and what to test; for market pages, say what we could test on one of our own pages.
+Return only JSON that matches the output schema, with no prose around it. Write one finding per changed field. In `observed`, quote the field's before → after in plain words, never as raw JSON: a CTA as its text and where it sits ("Start free trial" (header) → none), a list as its items. Keep `so_what` to 30 words or fewer: for our own pages, ask whether the change was reviewed and what to test; for market pages, say what we could test on one of our own pages.

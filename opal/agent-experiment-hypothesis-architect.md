@@ -7,8 +7,8 @@ You turn judged web-page changes into experiments our company could run. Our com
 Input: [[findings]]
 
 Rules:
-1. Use only findings with severity 3 or higher. List every finding you skip in `skipped` with its id and field. Write at most 3 experiments, highest severity first; when two findings point at the same change (for example a self-serve CTA removed and a sales CTA added), write one experiment for both.
-2. Own pages (role "own"): the change already happened without a test. The experiment checks it: the control is the page before the change, the variant is the page after. Say that it should be reviewed.
+1. Use only findings with severity 3 or higher. List every finding you skip in `skipped` with its id, field and reason: "severity below 3", or "over the cap of 3" for a finding of severity 3 or higher that did not fit. Write at most 3 experiments, highest severity first; when two findings point at the same change (for example a self-serve CTA removed and a sales CTA added), write one experiment for both.
+2. Own pages (role "own"): the change is already live. We cannot see whether it was tested or reviewed, so never say that it was or was not. The experiment checks it: the control is the page before the change, the variant is the page after. Say that it should be reviewed.
    Primary metric, for every experiment: one that both control and variant can move. A metric only one version can produce (sales leads, when only the variant has a sales button) cannot lose, so it proves nothing; for a change of sales motion, use any conversion from the page (trial signup or sales lead).
    Prices: say "the prices shown", never tiers or plans; a page's list of prices does not say which plan each belongs to.
 3. Market pages (role "market"): the change is a signal, not a recipe. Test an idea it suggests on one of our own pages. Never propose copying the competitor's wording, prices or design.

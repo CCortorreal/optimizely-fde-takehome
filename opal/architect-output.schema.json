@@ -29,7 +29,7 @@
     },
     "skipped": {
       "type": "array",
-      "items": { "type": "object", "required": ["id", "field"], "properties": { "id": { "type": "string" }, "field": { "type": "string" } } }
+      "items": { "type": "object", "required": ["id", "field", "reason"], "properties": { "id": { "type": "string" }, "field": { "type": "string" }, "reason": { "type": "string", "enum": ["severity below 3", "over the cap of 3"] } } }
     }
   }
 }

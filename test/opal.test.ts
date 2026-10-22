@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { opalPrompt } from "../scripts/opal-prompt.ts";
 import schema from "../opal/evaluator-output.schema.json" with { type: "json" };
+import architectSchema from "../opal/architect-output.schema.json" with { type: "json" };
 
 const rubric = readFileSync(new URL("../opal/rubric.md", import.meta.url), "utf8").replace(/\r\n/g, "\n").trim();
 
@@ -35,5 +36,11 @@ describe("opal texts", () => {
   it("the output schema allows exactly the rubric's categories", () => {
     const table = [...rubric.matchAll(/^\| `(\w+)` \|/gm)].map((m) => m[1]);
     expect(schema.properties.findings.items.properties.category.enum).toEqual(table);
+  });
+
+  it("the architect's prompt names exactly the skip reasons its schema allows", () => {
+    const reasons = architectSchema.properties.skipped.items.properties.reason.enum;
+    const named = [...opalPrompt("experiment-hypothesis-architect").matchAll(/"(severity below 3|over the cap of \d)"/g)].map((m) => m[1]);
+    expect(named).toEqual(reasons);
   });
 });
