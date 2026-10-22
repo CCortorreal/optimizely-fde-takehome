@@ -10,6 +10,8 @@ type Cta = { text: string; href: string; where: Where };
 const SALES = /\b(demo|talk to sales|contact sales|request pricing|quote|schedule|book)\b/i;
 const SELF_SERVE = /\b(start|try|get started|sign up|free trial|join|create (an )?account|buy|subscribe)\b/i;
 
+export type Surface = ReturnType<typeof extractSurface>;
+
 // HTML in, the page's commercial "surface" out. Grows one test at a time.
 export function extractSurface(html: string, url: string, id: string) {
   const $ = cheerio.load(html);

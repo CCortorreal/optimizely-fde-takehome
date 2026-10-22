@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { extractSurface } from "../src/surface.ts";
 import { classify } from "../src/classify.ts";
+import { diffSurface } from "../src/diff.ts";
 
 // Real pages saved from the live sites (2026) and from the Wayback Machine (early 2025).
 // They are other companies' pages, so they stay local (gitignored); without them these tests skip.
@@ -48,5 +49,14 @@ describe.skipIf(!have)("real pages, early 2025 vs October 2026", () => {
         expect(classify(200, html, page(`${name}.${year}.html`))).toBe("ok"); // no false "robot check" on a real page
       }
     }
+  });
+
+  it("the diff finds what a person saw change, and nothing that didn't", () => {
+    const fields = (name: string) => diffSurface(page(`${name}.2025.html`), page(`${name}.2026.html`)).map((c) => `${c.field}:${c.kind}`);
+    expect(fields("zapier-pricing")).toEqual(expect.arrayContaining(["h1:changed", "social_proof:changed"]));
+    expect(fields("diligent-home")).toEqual(expect.arrayContaining(["title:changed", "h1:changed", "schema_org:changed"]));
+    const figma = fields("figma-pricing");
+    expect(figma).toEqual(expect.arrayContaining(["h1:changed", "promo:removed", "prices:changed"]));
+    expect(figma.filter((f) => f.startsWith("cta"))).toEqual([]); // only the links changed (language code), not the buttons
   });
 });
