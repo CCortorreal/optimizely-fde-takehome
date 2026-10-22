@@ -1,0 +1,3 @@
+# The Megastack fixture site is deployed by Cloudflare, not here; tests never run on Vercel
+fixture/
+test/
