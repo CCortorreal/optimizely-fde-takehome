@@ -12,6 +12,7 @@ describe("opal texts", () => {
     for (const name of ["semantic-drift-evaluator", "experiment-hypothesis-architect"]) {
       const ownText = opalPrompt(name).replace(rubric, ""); // the rubric's labeled examples may name our test company
       expect(ownText, name).not.toMatch(/\{\{|megastack/i);
+      expect(opalPrompt(name), name).not.toMatch(/<[a-z]/i); // Opal's prompt editor deletes <placeholders> as if they were HTML tags
     }
   });
 
