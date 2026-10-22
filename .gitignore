@@ -1,3 +1,5 @@
 node_modules/
 .vercel/
 .env*
+# Real third-party pages for local tests only; not ours to republish
+test/fixtures/real/
