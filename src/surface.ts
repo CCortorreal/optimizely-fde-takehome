@@ -14,7 +14,42 @@ export function extractSurface(html: string, url: string, id: string) {
   const $ = cheerio.load(html);
   const title = clean($("title").first().text());
   const h1 = clean($("h1").first().text());
-  return { title, h1, ctas: findCtas($) };
+  const texts = pageTexts($);
+  return {
+    title,
+    h1,
+    ctas: findCtas($),
+    headings: findHeadings($),
+    promo: texts.find((t) => PROMO.test(t) && t.length < 90 && !t.endsWith("?")) ?? null,
+    prices: texts.filter((t) => PRICE.test(t)).slice(0, 8),
+  };
+}
+
+// Real pricing pages carry no labels like class="price", so these rules read the words (probe of real pages 10/22).
+const PRICE = /^\$\s?\d[\d,]*(\.\d+)?(\s*(\/|per)\s*[\w ]+)?$/i; // "$19", "$12.50", "$16 / month"
+const PROMO = /(save \d+%|\d+% off|free for|limited time|discount)/i; // FAQ questions are filtered out by the "?" rule
+const SKIP = "script, style, noscript, nav, footer, [id*=onetrust], [class*=cookie]"; // menus, footers, banners repeat site-wide
+
+// Section headings carry the messaging on real sites (value props, sometimes plan names). Order kept: reordering is a signal.
+function findHeadings($: cheerio.CheerioAPI): string[] {
+  return $("h2")
+    .filter((_, el) => $(el).closest(SKIP).length === 0)
+    .map((_, el) => clean($(el).text()))
+    .get()
+    .filter((t): t is string => t !== null)
+    .slice(0, 6);
+}
+
+// The text of every innermost element on the page, in order, outside menus/footers/banners.
+function pageTexts($: cheerio.CheerioAPI): string[] {
+  const out: string[] = [];
+  $("body *").each((_, el) => {
+    const node = $(el);
+    if (node.children().length > 0 || node.closest(SKIP).length > 0) return;
+    const t = clean(node.text());
+    if (t) out.push(t);
+  });
+  return out;
 }
 
 function findCtas($: cheerio.CheerioAPI) {

@@ -28,4 +28,22 @@ describe("extractSurface", () => {
       sales: { text: "Contact sales", href: "/sales", where: "nav" },
     });
   });
+
+  it("reads section headings, the promo and the prices from the pricing page", () => {
+    const s = extractSurface(pricing, URL_, "megastack-pricing");
+    expect(s.headings).toEqual(["Starter", "Team", "Enterprise"]);
+    expect(s.promo).toBe("Save 20% on annual plans");
+    expect(s.prices).toEqual(["$19", "$49"]); // "Contact us" is not a price
+  });
+
+  it("skips FAQ questions, menus and footers when looking for promos and prices", () => {
+    const html = `
+      <nav><a href="/p">Pricing</a><span>$5</span></nav>
+      <main><h2>Plans</h2><h3>Do you offer any discounts?</h3><p>Plans from</p><span>$12</span></main>
+      <footer><p>Save 50% today only</p><span>$1</span></footer>`;
+    const s = extractSurface(html, "https://example.test/", "example");
+    expect(s.promo).toBeNull();
+    expect(s.prices).toEqual(["$12"]);
+    expect(s.headings).toEqual(["Plans"]);
+  });
 });
