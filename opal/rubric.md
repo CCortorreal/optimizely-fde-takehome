@@ -32,7 +32,7 @@ The tool reports **what changed**, field by field, with `before` and `after`. Yo
 | 1 | Housekeeping | Title wording, structured data, a social proof count |
 
 ## 4. Own pages vs market pages
-- **Own (Megastack):** ask "was this reviewed, and should it be tested before it stays?" An unreviewed change of motion or price on our own page is severity 5 even if it was intended.
+- **Own (Megastack):** ask "was this reviewed, and should it be tested before it stays?" An unreviewed change of motion on our own page is severity 5 even if it was intended. A price or offer change on our own page stays 4: companies change prices on purpose, and if every change is a 5, nobody listens to the 5s.
 - **Market:** ask "what should Megastack test in response?" Name the Megastack page the test would run on.
 
 ## 5. Where these judgments come from
