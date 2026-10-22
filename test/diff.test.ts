@@ -43,3 +43,17 @@ describe("diff", () => {
     expect(diffSurface(read("<main><p>$19</p><p>$49</p></main>"), read("<main><p>$49</p><p>$19</p></main>"))).toEqual([]);
   });
 });
+
+// The answer key: Megastack v1 (baselines.json, captured live) vs v2 (fixture/, the planted changes).
+describe("Megastack v1 → v2: exactly the planted changes, and not the noise", async () => {
+  const baselines = (await import("../baselines.json", { with: { type: "json" } })).default as Record<string, { surface: ReturnType<typeof read> }>;
+  const v2 = (path: string) => read(readFileSync(new URL(`../fixture/${path}`, import.meta.url), "utf8"));
+  it("home: the H1 rewrite is caught; the new testimonial and reordered footer are not", () => {
+    expect(diffSurface(baselines["megastack-home"].surface, v2("index.html")).map((c) => `${c.field}:${c.kind}`)).toEqual(["h1:changed"]);
+  });
+  it("pricing: the CTA switched to sales, the Team price rose and the promo is gone", () => {
+    expect(diffSurface(baselines["megastack-pricing"].surface, v2("pricing/index.html")).map((c) => `${c.field}:${c.kind}`)).toEqual([
+      "cta_self_serve:removed", "cta_sales:added", "promo:removed", "prices:changed",
+    ]);
+  });
+});
