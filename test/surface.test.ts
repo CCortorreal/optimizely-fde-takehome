@@ -46,4 +46,10 @@ describe("extractSurface", () => {
     expect(s.prices).toEqual(["$12"]);
     expect(s.headings).toEqual(["Plans"]);
   });
+
+  it("lists each price once, in first-seen order (a repeated comparison table is not a change)", () => {
+    const html = `<main><p>$15</p><p>$45</p><table><tr><td>$15</td><td>$45</td><td>$75</td></tr></table></main>`;
+    const s = extractSurface(html, "https://example.test/", "example");
+    expect(s.prices).toEqual(["$15", "$45", "$75"]);
+  });
 });

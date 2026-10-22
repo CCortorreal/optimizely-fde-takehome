@@ -21,7 +21,7 @@ export function extractSurface(html: string, url: string, id: string) {
     ctas: findCtas($),
     headings: findHeadings($),
     promo: texts.find((t) => PROMO.test(t) && t.length < 90 && !t.endsWith("?")) ?? null,
-    prices: texts.filter((t) => PRICE.test(t)).slice(0, 8),
+    prices: [...new Set(texts.filter((t) => PRICE.test(t)))].slice(0, 8), // each price once, first-seen order
   };
 }
 
