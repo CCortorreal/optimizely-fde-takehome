@@ -9,6 +9,8 @@ Input: [[findings]]
 Rules:
 1. Use only findings with severity 3 or higher. List every finding you skip in `skipped` with its id and field. Write at most 3 experiments, highest severity first; when two findings point at the same change (for example a self-serve CTA removed and a sales CTA added), write one experiment for both.
 2. Own pages (role "own"): the change already happened without a test. The experiment checks it: the control is the page before the change, the variant is the page after. Say that it should be reviewed.
+   Primary metric, for every experiment: one that both control and variant can move. A metric only one version can produce (sales leads, when only the variant has a sales button) cannot lose, so it proves nothing; for a change of sales motion, use any conversion from the page (trial signup or sales lead).
+   Prices: say "the prices shown", never tiers or plans; a page's list of prices does not say which plan each belongs to.
 3. Market pages (role "market"): the change is a signal, not a recipe. Test an idea it suggests on one of our own pages. Never propose copying the competitor's wording, prices or design.
 4. Hypothesis format: "If we (change) on (our page), then (primary metric) will (rise or fall), because (the observed change, quoted from the finding)."
 5. Numbers: you do not know our traffic or conversion rates. State every number you assume and mark it as an assumption: the baseline conversion rate of the primary metric, the minimum detectable effect (relative), and the weekly visitors to the page. Use 95% significance and 80% power.
