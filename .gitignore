@@ -4,3 +4,6 @@ node_modules/
 # Real third-party pages for local tests only; not ours to republish
 test/fixtures/real/
 __pycache__/
+
+# Submitted deliverables (PDF, zips, email draft): kept local, not versioned
+submission/
